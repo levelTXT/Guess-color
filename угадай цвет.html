@@ -1,0 +1,98 @@
+<Doctype HTML>
+<html>
+<head>
+<style>#PlayMenu {visibility: hidden; width: 50.7vh; height: 100vh; background-color: rgba(250, 250, 230, 1); z-index: 1; position: absolute; top: 0; left: 0;}
+#classicGame {position: absolute; left: 10vh; width: 0; height: 0;}
+body, html {overflow-x: hidden; padding: 0;}
+html {border: solid 1vh;}
+#game {width: 48.5vh; height: 100vh; background-color: rgba(250, 250, 200, 1); visibility: hidden; z-index: 2; position: absolute; left: 1vh; top: 0;}
+.cube {width: 6vh; height: 6vh; border: solid 0.1vh; border-radius: 0; background-color: white; margin: 0;}
+.cube:disabled {width: 6vh; height: 6vh; border: solid 0.1vh; border-radius: 0; background-color: white; margin: 0;}
+#place {position: absolute; top: 30vh; left: 15vh; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.05vh; margin: 0; box-shadow: none;}
+#color {background-color: white; position: absolute; width: 35vh; height: 8vh; border: solid 0.2vh black; bottom: 12vh; left: 5vh; visibility: hidden;}
+.colorCubes {width: 7vh; height: 7vh; margin-right: 0.3vh; position: relative; top: 0.5vh; left: 6.5vh;}
+#correct {position: absolute; left: 15vh; top: 15vh;}
+#attempt {position: absolute; right: 3vh; top: 20vh;
+</style>
+</head>
+<body>
+<p>версия: 1</p>
+разработчик: <a href="t.me/LEVELxMULTICRAFT">X_X-𝙻𝔼𝚅𝔼𝙻-X_X</a>
+<h1>угадай цвет.</h1>
+<button id="GameMenuCall">играть</button>
+<div id="PlayMenu"><div id="classicGame"><p>классика</p> <br> <button id="playClassic">играть</button></div></div>
+<div id="game"><p id="correct">правильно: 0</p><p id="attempt">попытки: 3</p><div id="color"></div><div id="place"></div></div>
+<script> const CallPlayMenuButton = document.querySelector("#GameMenuCall");
+const PlayMenu = document.querySelector("#PlayMenu");
+const startClassic = document.querySelector("#playClassic");
+const game = document.querySelector("#game");
+const place = document.querySelector("#place");
+const colors = document.querySelector("#color");
+const attemptString = document.querySelector("#attempt");
+const correctString = document.querySelector("#correct");
+//🔤переменные для игры
+let colorsAvailable = ["red", "green", "blue"];
+let cubeChos = null;
+let lockCube = [null];
+let pattern = [];
+let playerPattern = [];
+let correctCube = null;
+let attempt = 3;
+let waitIndex = null;
+//🔤переменные для игры
+//📖общий вызов меню
+function CallPlayMenu() {PlayMenu.style.visibility = "visible"};
+CallPlayMenuButton.addEventListener("click", CallPlayMenu);
+//📖общий вызов меню
+//💡создание игры
+function createGame() {game.style.visibility = "visible";
+for (let i = 1; i < 10; i++) {const block = document.createElement("button");
+block.className = "cube";
+block.id = `cube${i}`;
+place.appendChild(block);
+};
+for (let i = 0; i < colorsAvailable.length; i++) {
+const colorCube = document.createElement("button");
+colorCube.className = "colorCubes";
+colorCube.style.backgroundColor = colorsAvailable[i];
+colorCube.id = `cc${i}`;
+console.log(colorCube.id);
+colors.appendChild(colorCube);
+};
+for (let i = 0; i < 9; i++) {pattern.push(colorsAvailable[Math.floor(Math.random() * 3)]);
+};
+console.log(pattern);
+};
+//💡создание игры
+startClassic.addEventListener("click", createGame);
+function callColor(e) {colors.style.visibility = "visible";
+for (let i = 1; i < 10; i++) {document.querySelector(`#cube${i}`).disabled = true;}
+cubeChos = e.target.id;
+lockCube.push(`#${cubeChos}`);
+console.log(cubeChos);
+};
+place.addEventListener("click", callColor);
+function choseColor(e) {color = document.querySelector(`#${e.target.id}`).style.backgroundColor;
+document.querySelector(`#${cubeChos}`).style.backgroundColor = color;
+for (let i = 1; i < 10; i++) {if (lockCube.includes(`#cube${i}`)) {document.querySelector(`#cube${i}`).disabled = true} else {document.querySelector(`#cube${i}`).disabled = false;};};
+cubeChos = null;
+colors.style.visibility = "hidden";
+attempt--;
+attemptString.innerHTML = `попытки: ${attempt}`;
+attemptReset();
+};
+colors.addEventListener("click", choseColor);
+function attemptReset() {if (attempt <= 0) {attempt += 3;
+check();
+attemptString.innerHTML = `попытки: ${attempt}`;
+for (let i = 0; i < 3; i++) {lockCube.pop(); } addAttemptReset();} else {}};
+function addAttemptReset() {for (let i = 1; i < 10; i++) {if (lockCube.includes(`#cube${i}`)) {document.querySelector(`#cube${i}`).disabled = true} else {document.querySelector(`#cube${i}`).disabled = false;};};};
+function check() {let count = 0;
+let currentPlayerPattern = [];
+const checkArr = document.querySelectorAll(".cube");
+for (let i = 0; i < 9; i++) {playerPattern[i] = checkArr[i].style.backgroundColor;};
+for (let i = 0; i < 9; i++) {if (playerPattern[i] === pattern[i]) {count++;} else {};};
+correctString.innerHTML = `правильно: ${count}`};
+</script>
+</body>
+</html>
