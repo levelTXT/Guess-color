@@ -1,11 +1,14 @@
 <Doctype HTML>
 <html>
 <head>
-<style>#PlayMenu {visibility: hidden; width: 48.7vh; height: 98vh; background-color: rgba(250, 250, 230, 1); z-index: 1; position: absolute; top: 0; left: 0; border: solid 1vh black;}
-#classicGame {position: absolute; left: 15vh; width: 0; height: 0; font-size: 4vh;}
+<style>
 body, html {overflow-x: hidden; padding: 0;}
 html {border: solid 1vh;}
-#GameMenuCall {width: 25vh; height: 10vh; font-size: 4vh; position: relative; left: 10vh;}
+#PlayMenu {visibility: hidden; width: 48.7vh; height: 98vh; background-color: rgba(250, 250, 230, 1); z-index: 1; position: absolute; top: 0; left: 0; border: solid 1vh black;}
+#classicGame {position: absolute; left: 1vh; top: 1vh; height: 6vh;}
+#playClassic {position: relative; bottom: 1vh; left: 18vh; width: 10vh; height: 3vh; font-size: 2vh; background-color: lightgreen; color: white;}
+#gameNameClassic {position: relative; left: 17vh; top: -3vh; font-size: 3vh;}
+#GameMenuCall {width: 25vh; height: 10vh; font-size: 7vh; position: absolute; left: 13vh; top: 25vh; background-color: lightgreen}
 #game {width: 48.7vh; height: 98vh; background-color: rgba(250, 250, 200, 1); visibility: hidden; z-index: 2; position: absolute; left: 0; top: 0; border: solid 1vh black;}
 .cube {width: 6vh; height: 6vh; border: solid 0.1vh; border-radius: 0; background-color: white; margin: 0;}
 .cube:disabled {width: 6vh; height: 6vh; border: solid 0.1vh; border-radius: 0; background-color: white; margin: 0;}
@@ -13,19 +16,26 @@ html {border: solid 1vh;}
 #color {background-color: white; position: absolute; width: 35vh; height: 8vh; border: solid 0.2vh black; bottom: 12vh; left: 6vh; visibility: hidden;}
 .colorCubes {width: 7vh; height: 7vh; margin-right: 0.3vh; position: relative; top: 0.5vh; left: 6.5vh;}
 #correct {position: absolute; left: 15vh; top: 23vh; font-size: 3vh;}
-#attempt {position: absolute; right: 3vh; top: 28vh;}
+#attempt {position: absolute; right: 2vh; top: 28vh; font-size: 2.5vh;}
 #backColor {position: absolute; top: -1vh; right: -1vh; width: 4vh; height: 4vh; border-radius: 50%}
-#sign {font-size: 8vh;}
+#sign1 {font-size: 6vh; position: absolute; top: -4vh; left: 15.5vh;}
+#sign2 {font-size: 6vh; position: absolute; top: 1vh; left: 18.5vh;}
+#version {position: absolute; bottom: 0; left: 2vh; z-index: 4;}
+#author {position: absolute; bottom: 2vh; left: 2vh;}
+#backToMenu {position: absolute; z-index: 3; width: 4vh; height: 4vh; background-color: yellow; color: red; font-size: 3vh; top: 0.4vh; left: 0.4vh;}
 #decorateGame1 {position: absolute; border: solid 0.1vh black; width: 49.5vh; z-index: 3; top: 30vh; left: 0;}
+#decorateMain1 {position: absolute; border: solid 0.2vh black; border-left: none; border-top: none; border-right: none; width: 26vh; top: 7vh; left: 12vh;}
+#decorateMenu1 {position: absolute; border: solid black 0.2vh; width: 47vh; height: 12vh; top: 1vh; left: 0.8vh;}
 </style>
 </head>
 <body>
 <div id="decorateBox"></div>
-<p>версия: 3</p>
-разработчик: <a href="t.me/LEVELxMULTICRAFT">X_X-𝙻𝔼𝚅𝔼𝙻-X_X</a>
-<h1 id="sign">угадай цвет.</h1>
-<button id="GameMenuCall">играть</button>
-<div id="PlayMenu"><div id="classicGame"><p>классика</p> <br> <button id="playClassic">играть</button></div></div>
+<p id="version">версия: 4</p>
+<p id="author">разработчик: <a href="t.me/LEVELxMULTICRAFT">X_X-𝙻𝔼𝚅𝔼𝙻-X_X</a><p>
+<h1 id="sign1">угадай</h1>
+<h1 id="sign2">цвет</h1>
+<button id="GameMenuCall"><strong>играть</strong></button>
+<div id="PlayMenu"><button id="backToMenu"><</button><div id="playMenuDecorate"></div><div id="classicGame"><p id="gameNameClassic">классика</p><button id="playClassic">играть</button></div></div>
 <div id="game"><div id="decorateGame"></div><p id="correct">правильно: 0</p><p id="attempt">попытки: 3</p><div id="color"><button id="backColor">❌</button></div><div id="place"></div></div>
 <script> const CallPlayMenuButton = document.querySelector("#GameMenuCall");
 const PlayMenu = document.querySelector("#PlayMenu");
@@ -36,6 +46,7 @@ const colors = document.querySelector("#color");
 const attemptString = document.querySelector("#attempt");
 const correctString = document.querySelector("#correct");
 const backColor = document.querySelector("#backColor");
+const backToMenu = document.querySelector("#backToMenu");
 //🔤переменные для игры
 let colorsAvailable = ["red", "green", "blue"];
 let cubeChos = null;
@@ -44,13 +55,16 @@ let pattern = [];
 let playerPattern = [];
 let attempt = 3;
 let color = null;
+let gameCreate = false;
 //🔤переменные для игры
 //📖общий вызов меню
 function CallPlayMenu() {PlayMenu.style.visibility = "visible"};
 CallPlayMenuButton.addEventListener("touchstart", CallPlayMenu);
 //📖общий вызов меню
 //💡создание игры
-function createGame() {game.style.visibility = "visible";
+function createGame() {
+game.style.visibility = "visible";
+if (!gameCreate) {
 for (let i = 1; i < 10; i++) {const block = document.createElement("button");
 block.className = "cube";
 block.id = `cube${i}`;
@@ -64,9 +78,11 @@ colorCube.id = `cc${i}`;
 console.log(colorCube.id);
 colors.appendChild(colorCube);
 };
+} else {};
 for (let i = 0; i < 9; i++) {pattern.push(colorsAvailable[Math.floor(Math.random() * 3)]);
 };
 console.log(pattern);
+gameCreate = true;
 };
 //💡создание игры
 startClassic.addEventListener("touchstart", createGame);
@@ -94,26 +110,56 @@ colors.addEventListener("touchstart", choseColor);
 function attemptReset() {if (attempt <= 0) {attempt += 3;
 check();
 attemptString.innerHTML = `попытки: ${attempt}`;
-for (let i = 0; i < 3; i++) {lockCube.pop(); } addAttemptReset();} else {}};
+for (let i = 0; i < 3; i++) {lockCube.pop();} addAttemptReset();} else {}};
 function addAttemptReset() {for (let i = 1; i < 10; i++) {if (lockCube.includes(`#cube${i}`)) {document.querySelector(`#cube${i}`).disabled = true} else {document.querySelector(`#cube${i}`).disabled = false;};};};
 function check() {let count = 0;
 let currentPlayerPattern = [];
 const checkArr = document.querySelectorAll(".cube");
 for (let i = 0; i < 9; i++) {playerPattern[i] = checkArr[i].style.backgroundColor;};
 for (let i = 0; i < 9; i++) {if (playerPattern[i] === pattern[i]) {count++;} else {};};
-correctString.innerHTML = `правильно: ${count}`};
+correctString.innerHTML = `правильно: ${count}`;
+winCheck(count);
+};
 function decorateCreate() {
 let decorate = null;
 const decorateGame = document.querySelector("#decorateGame");
+const decorateBox = document.querySelector("#decorateBox");
+const decoratePlayMenu = document.querySelector("#playMenuDecorate");
 for (let i = 1; i < 2; i++) {decorate = document.createElement("paragraph");
 decorate.id = `decorateGame${i}`;
-decorateGame.appendChild(decorate);};};
+decorateGame.appendChild(decorate);};
+for (let i = 1; i < 2; i++) {decorate = document.createElement("paragraph");
+decorate.id = `decorateMain${i}`
+decorateBox.appendChild(decorate);};
+for (let i = 1; i < 2; i++) {decorate = document.createElement("paragraph");
+decorate.id = `decorateMenu${i}`
+decoratePlayMenu.appendChild(decorate);};
+};
 decorateCreate();
 function backColorMenu() {colors.style.visibility = "hidden";
 for (let i = 1; i < 10; i++) {document.querySelector(`#cube${i}`).disabled = false;}
 cubeChos = null;
 lockCube.pop();};
 backColor.addEventListener("touchstart", backColorMenu);
+function winCheck(correctCube) {
+if (correctCube == 9) {
+cubeChos = null;
+lockCube.length = 1;
+pattern.length = 0;
+playerPattern.length = 0;
+attempt = 3;
+color = null;
+correct.innerHTML = "правильно: 0";
+PlayMenu.style.visibility = "hidden";
+game.style.visibility = "hidden";
+for (let i = 1; i < 10; i++) {
+document.querySelector(`#cube${i}`).style.backgroundColor = "white";
+};} else {};
+};
+function closePlayMenu() {
+PlayMenu.style.visibility = "hidden";
+};
+backToMenu.addEventListener("touchstart", closePlayMenu);
 </script>
 </body>
 </html>
