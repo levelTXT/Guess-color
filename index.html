@@ -7,8 +7,8 @@ html {border: solid 1vh;}
 #PlayMenu {visibility: hidden; width: 48.7vh; height: 98vh; background-color: rgba(250, 250, 230, 1); z-index: 1; position: absolute; top: 0; left: 0; border: solid 1vh black;}
 #classicGame {position: absolute; left: 1vh; top: 1vh; height: 6vh;}
 #playClassic {position: relative; bottom: 1vh; left: 18vh; width: 10vh; height: 3vh; font-size: 2vh; background-color: lightgreen; color: white;}
-#gameNameClassic {position: relative; left: 17vh; top: -3vh; font-size: 3vh;}
-#GameMenuCall {width: 25vh; height: 10vh; font-size: 7vh; position: absolute; left: 13vh; top: 25vh; background-color: lightgreen}
+#gameNameClassic {position: relative; left: 17vh; top: -3vh; font-size: 3vh; color: white;}
+#GameMenuCall {width: 25vh; height: 10vh; font-size: 7vh; position: absolute; left: 13vh; top: 35vh; background-color: lightgreen}
 #game {width: 48.7vh; height: 98vh; background-color: rgba(250, 250, 200, 1); visibility: hidden; z-index: 2; position: absolute; left: 0; top: 0; border: solid 1vh black;}
 .cube {width: 6vh; height: 6vh; border: solid 0.1vh; border-radius: 0; background-color: white; margin: 0;}
 .cube:disabled {width: 6vh; height: 6vh; border: solid 0.1vh; border-radius: 0; background-color: white; margin: 0;}
@@ -18,26 +18,32 @@ html {border: solid 1vh;}
 #correct {position: absolute; left: 15vh; top: 23vh; font-size: 3vh;}
 #attempt {position: absolute; right: 2vh; top: 28vh; font-size: 2.5vh;}
 #backColor {position: absolute; top: -1vh; right: -1vh; width: 4vh; height: 4vh; border-radius: 50%}
-#sign1 {font-size: 6vh; position: absolute; top: -4vh; left: 15.5vh;}
-#sign2 {font-size: 6vh; position: absolute; top: 1vh; left: 18.5vh;}
-#version {position: absolute; bottom: 0; left: 2vh; z-index: 4;}
-#author {position: absolute; bottom: 2vh; left: 2vh;}
+#sign1 {font-size: 8vh; position: absolute; top: -5.8vh; left: 13vh;}
+#sign2 {font-size: 8vh; position: absolute; top: 0.7vh; left: 17vh;}
+#version {position: absolute; bottom: 0; left: 2vh; z-index: 4; font-size: 2vh;}
+#author {position: absolute; bottom: 2vh; left: 2vh; font-size: 2vh;}
 #backToMenu {position: absolute; z-index: 3; width: 4vh; height: 4vh; background-color: yellow; color: red; font-size: 3vh; top: 0.4vh; left: 0.4vh;}
+#resultScreen {position: absolute; background-color: rgba(0, 0, 0, 0.5); width: 101%; height: 101%; z-index: 5; visibility: hidden;}
+#resultType {color: white; font-weight: bold; font-size: 5vh; position: absolute; left: 16vh; top: 20vh;}
+#resultTime {color: white; font-weight: bold; font-size: 4vh; position: absolute; left: 18vh; top: 25.5vh;}
+#timeLabel {position: absolute; left: 15vh; top: 0vh; font-size: 8vh}
+#continueGame {background-color: lightgray; width: 20vh; height: 7vh; font-size: 3vh; position: absolute; bottom: 40vh; left: 14vh;}
 #decorateGame1 {position: absolute; border: solid 0.1vh black; width: 49.5vh; z-index: 3; top: 30vh; left: 0;}
-#decorateMain1 {position: absolute; border: solid 0.2vh black; border-left: none; border-top: none; border-right: none; width: 26vh; top: 7vh; left: 12vh;}
-#decorateMenu1 {position: absolute; border: solid black 0.2vh; width: 47vh; height: 12vh; top: 1vh; left: 0.8vh;}
+#decorateMain1 {position: absolute; border: solid 0.2vh black; border-left: none; border-top: none; border-right: none; width: 32vh; top: 8.8vh; left: 9.8vh;}
+#decorateMenu1 {position: absolute; border: solid black 0.2vh; width: 47vh; height: 12vh; top: 1vh; left: 0.8vh; background-color: green;}
 </style>
 </head>
 <body>
 <div id="decorateBox"></div>
-<p id="version">версия: 4</p>
+<p id="version">версия: 5</p>
 <p id="author">разработчик: <a href="t.me/LEVELxMULTICRAFT">X_X-𝙻𝔼𝚅𝔼𝙻-X_X</a><p>
 <h1 id="sign1">угадай</h1>
 <h1 id="sign2">цвет</h1>
 <button id="GameMenuCall"><strong>играть</strong></button>
 <div id="PlayMenu"><button id="backToMenu"><</button><div id="playMenuDecorate"></div><div id="classicGame"><p id="gameNameClassic">классика</p><button id="playClassic">играть</button></div></div>
-<div id="game"><div id="decorateGame"></div><p id="correct">правильно: 0</p><p id="attempt">попытки: 3</p><div id="color"><button id="backColor">❌</button></div><div id="place"></div></div>
-<script> const CallPlayMenuButton = document.querySelector("#GameMenuCall");
+<div id="game"><p id="timeLabel">99:99</p><div id="resultScreen"><p id="resultType">победа</p><p id="resultTime">время</p><button id="continueGame">продолжить</button></div><div id="decorateGame"></div><p id="correct">правильно: 0</p><p id="attempt">попытки: 3</p><div id="color"><button id="backColor">❌</button></div><div id="place"></div></div>
+<script>
+const CallPlayMenuButton = document.querySelector("#GameMenuCall");
 const PlayMenu = document.querySelector("#PlayMenu");
 const startClassic = document.querySelector("#playClassic");
 const game = document.querySelector("#game");
@@ -47,6 +53,11 @@ const attemptString = document.querySelector("#attempt");
 const correctString = document.querySelector("#correct");
 const backColor = document.querySelector("#backColor");
 const backToMenu = document.querySelector("#backToMenu");
+const resultScreen = document.querySelector("#resultScreen");
+const resultType = document.querySelector("#resultType");
+const resultTime = document.querySelector("#resultTime");
+const continueGame = document.querySelector("#continueGame");
+const timeLabel = document.querySelector("#timeLabel");
 //🔤переменные для игры
 let colorsAvailable = ["red", "green", "blue"];
 let cubeChos = null;
@@ -56,6 +67,9 @@ let playerPattern = [];
 let attempt = 3;
 let color = null;
 let gameCreate = false;
+let time = [0, 5];
+let rememberTimeCycl = null;
+let timeSpent = [1, 0];
 //🔤переменные для игры
 //📖общий вызов меню
 function CallPlayMenu() {PlayMenu.style.visibility = "visible"};
@@ -64,6 +78,7 @@ CallPlayMenuButton.addEventListener("touchstart", CallPlayMenu);
 //💡создание игры
 function createGame() {
 game.style.visibility = "visible";
+timeLabel.innerHTML = timeOptimize(time[1], time[0]);
 if (!gameCreate) {
 for (let i = 1; i < 10; i++) {const block = document.createElement("button");
 block.className = "cube";
@@ -83,14 +98,15 @@ for (let i = 0; i < 9; i++) {pattern.push(colorsAvailable[Math.floor(Math.random
 };
 console.log(pattern);
 gameCreate = true;
+rememberTimeCycl = setInterval(timeRun, 100);
 };
-//💡создание игры
 startClassic.addEventListener("touchstart", createGame);
+//💡создание игры
+//🎨выбор цвета
 function callColor(e) {colors.style.visibility = "visible";
 for (let i = 1; i < 10; i++) {document.querySelector(`#cube${i}`).disabled = true;}
 cubeChos = e.target.id;
 lockCube.push(`#${cubeChos}`);
-console.log(cubeChos);
 };
 place.addEventListener("click", callColor);
 function choseColor(e) {if (e.target.id === "backColor") {return;} else {};
@@ -107,12 +123,15 @@ attemptString.innerHTML = `попытки: ${attempt}`;
 attemptReset();
 };
 colors.addEventListener("touchstart", choseColor);
-function attemptReset() {if (attempt <= 0) {attempt += 3;
+//🎨выбор цвета
+function attemptReset() {if (attempt <= 0) {
+attempt += 3;
 check();
 attemptString.innerHTML = `попытки: ${attempt}`;
 for (let i = 0; i < 3; i++) {lockCube.pop();} addAttemptReset();} else {}};
 function addAttemptReset() {for (let i = 1; i < 10; i++) {if (lockCube.includes(`#cube${i}`)) {document.querySelector(`#cube${i}`).disabled = true} else {document.querySelector(`#cube${i}`).disabled = false;};};};
-function check() {let count = 0;
+function check() {
+let count = 0;
 let currentPlayerPattern = [];
 const checkArr = document.querySelectorAll(".cube");
 for (let i = 0; i < 9; i++) {playerPattern[i] = checkArr[i].style.backgroundColor;};
@@ -141,8 +160,7 @@ for (let i = 1; i < 10; i++) {document.querySelector(`#cube${i}`).disabled = fal
 cubeChos = null;
 lockCube.pop();};
 backColor.addEventListener("touchstart", backColorMenu);
-function winCheck(correctCube) {
-if (correctCube == 9) {
+function restoreGame() {
 cubeChos = null;
 lockCube.length = 1;
 pattern.length = 0;
@@ -152,14 +170,76 @@ color = null;
 correct.innerHTML = "правильно: 0";
 PlayMenu.style.visibility = "hidden";
 game.style.visibility = "hidden";
+resultScreen.style.visibility = "hidden";
 for (let i = 1; i < 10; i++) {
 document.querySelector(`#cube${i}`).style.backgroundColor = "white";
-};} else {};
 };
+};
+continueGame.addEventListener("touchstart", restoreGame);
 function closePlayMenu() {
 PlayMenu.style.visibility = "hidden";
 };
 backToMenu.addEventListener("touchstart", closePlayMenu);
+function winCheck(correctCube) {
+if (correctCube === 9) {
+resultScreen.style.visibility = "visible";
+resultType.style.left = "16vh";
+resultType.innerHTML = "победа";
+resultType.style.color = "yellow";
+resultTime.innerHTML = timeOptimize(timeSpent[1], timeSpent[0]);
+time[1] = 5;
+time[0] = 0;
+timeSpent[1] = 0;
+timeSpent[0] = 1;
+clearInterval(rememberTimeCycl);
+} else {
+};
+};
+function timeRun() {
+timeSpent[0]++;
+if (timeSpent[0] >= 60) {
+timeSpent[1]++;
+timeSpent[0] -= 59; 
+} else {
+};
+time[0]--;
+if (time[0] <= 0 && time[1] > 0) {
+time[1]--;
+time[0] += 59;
+} else if (time[0] <= 0 && time[1] <= 0) {
+console.log("время вышло!");
+clearInterval(rememberTimeCycl);
+timeLabel.innerHTML = timeOptimize(time[1], time[0]);
+loseTime();
+time[1] = 5;
+time[0] = 0;
+timeSpent[1] = 0;
+timeSpent[0] = 0;
+} else {
+timeLabel.innerHTML = timeOptimize(time[1], time[0]);
+};
+};
+function loseTime() {
+resultScreen.style.visibility = "visible";
+resultType.style.left = "11vh";
+resultType.innerHTML = "поражение";
+resultType.style.color = "red";
+resultTime.innerHTML = timeOptimize(timeSpent[1], timeSpent[0] - 1);
+};
+function timeOptimize(minut, second) {
+let timeSpentOpt = " ";
+if (minut >= 10) {
+timeSpentOpt += `${minut}:`;
+} else {
+timeSpentOpt += `0${minut}:`;
+};
+if (second >= 10) {
+timeSpentOpt += `${second}`;
+} else {
+timeSpentOpt += `0${second}`;
+};
+return timeSpentOpt;
+};
 </script>
 </body>
 </html>
