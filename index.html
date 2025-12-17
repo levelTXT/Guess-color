@@ -2,14 +2,14 @@
 <html>
 <head>
 <style>
-body, html {overflow-x: hidden; padding: 0;}
+body, html {overflow-x: hidden; padding: 0; background-color: white;}
 html {border: solid 1vh;}
-#PlayMenu {visibility: hidden; width: 48.7vh; height: 98vh; background-color: rgba(250, 250, 230, 1); z-index: 1; position: absolute; top: 0; left: 0; border: solid 1vh black;}
+#PlayMenu {visibility: hidden; width: 48.7vh; height: 98vh; background-color: rgba(250, 250, 230, 1); z-index: 3; position: absolute; top: 0; left: 0; border: solid 1vh black;}
 #classicGame {position: absolute; left: 1vh; top: 1vh; height: 6vh;}
 #playClassic {position: relative; bottom: 1vh; left: 18vh; width: 10vh; height: 3vh; font-size: 2vh; background-color: lightgreen; color: white;}
 #gameNameClassic {position: relative; left: 17vh; top: -3vh; font-size: 3vh; color: white;}
 #GameMenuCall {width: 25vh; height: 10vh; font-size: 7vh; position: absolute; left: 13vh; top: 35vh; background-color: lightgreen}
-#game {width: 48.7vh; height: 98vh; background-color: rgba(250, 250, 200, 1); visibility: hidden; z-index: 2; position: absolute; left: 0; top: 0; border: solid 1vh black;}
+#game {width: 48.7vh; height: 98vh; background-color: rgba(250, 250, 200, 1); visibility: hidden; z-index: 4; position: absolute; left: 0; top: 0; border: solid 1vh black;}
 .cube {width: 6vh; height: 6vh; border: solid 0.1vh; border-radius: 0; background-color: white; margin: 0;}
 .cube:disabled {width: 6vh; height: 6vh; border: solid 0.1vh; border-radius: 0; background-color: white; margin: 0;}
 #place {position: absolute; top: 30vh; left: 15vh; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.05vh; margin: 0; box-shadow: none;}
@@ -25,8 +25,8 @@ html {border: solid 1vh;}
 #backToMenu {position: absolute; z-index: 3; width: 4vh; height: 4vh; background-color: yellow; color: red; font-size: 3vh; top: 0.4vh; left: 0.4vh;}
 #resultScreen {position: absolute; background-color: rgba(0, 0, 0, 0.5); width: 101%; height: 101%; z-index: 5; visibility: hidden;}
 #resultType {color: white; font-weight: bold; font-size: 5vh; position: absolute; left: 16vh; top: 20vh;}
-#resultTime {color: white; font-weight: bold; font-size: 4vh; position: absolute; left: 18vh; top: 25.5vh;}
-#timeLabel {position: absolute; left: 15vh; top: 0vh; font-size: 8vh}
+#resultTime {color: white; font-weight: bold; font-size: 4vh; position: absolute; left: 19vh; top: 25.5vh;}
+#timeLabel {position: absolute; top: 4vh; left: 14vh; font-size: 8vh;}
 #continueGame {background-color: lightgray; width: 20vh; height: 7vh; font-size: 3vh; position: absolute; bottom: 40vh; left: 14vh;}
 #pause {width: 6vh; height: 6vh; position: absolute; right: 1vh; top: 1vh; font-size: 3.5vh; background: none; border: none;}
 #pauseMenu {position: absolute; background-color: rgba(0, 0, 0, 0.5); z-index: 6; visibility: hidden; width: 101%; height: 101%;}
@@ -34,21 +34,83 @@ html {border: solid 1vh;}
 #startOver {position: absolute; background-color: black; font-size: 4vh; color: white; width: 28vh; left: 10.5vh; top: 32vh;}
 #returnToGameMode {position: absolute; background-color: black; font-size: 4vh; color: white; width: 28vh; left: 10.5vh; top: 39vh;}
 #returnToMenu {position: absolute; background-color: black; font-size: 4vh; color: white; width: 28vh; left: 10.5vh; top: 46vh;}
+#moreFunction {position: absolute; border: solid black 0.2vh; width: 46vh; height: 5vh; top: 29vh; border-radius: 2vh;}
+#settings {height: 4.5vh; width: 4.5vh; position: relative; top: 0.25vh; left: 0.25vh; border-radius: 40%; font-size: 2.7vh; padding: 0;}
+#settingsMenu {background-color: gray; width: 34vh; height: 50vh; position: absolute; top: 15vh; left: 8vh; z-index: 3; border: solid black 0.4vh; border-radius: 3vh; visibility: hidden;}
+#closeSettings {position: absolute; top: -1vh; right: -1vh; font-size: 2.3vh; padding: 0; border-radius: 50%; width: 4.5vh; height: 4.5vh;}
+#acceptSettings {background-color: yellow; color: green; position: absolute; bottom: 1vh; left: 6vh; width: 21vh; height: 8vh; font-size: 3vh;}
+#mainMenuSettings {color: white; position: absolute; top: 1vh; left: 0.5vh; font-size: 3vh;}
+#backgroundMainText {color: black; position: relative; top: -3vh; left: 0;}
+#MainMenuBackgroundColor {position: relative; top: -5vh; left: 0.5vh; width: 5vh; height: 5vh;}
+#coin {color: yellow; position: absolute; top: -2vh; right: 0vh; font-size: 2vh; background-color: black; height: 2.6vh; width: 10vh; border: none; border-radius: 0vh 1.4vh 0vh 1vh; z-index: 2;}
+#diamond {color: white; position: absolute; top: 0.7vh; right: 0vh; font-size: 2vh; background-color: black; height: 2.3vh; width: 10vh; border: none; border-radius: 1vh 0vh 1.4vh 0vh;}
+#level {position: absolute; top: -1.5vh; right: 9.1vh; color: green; border: solid black 0.1vh; border-radius: 2vh 0vh 0vh 2vh; width: 8.6vh; height: 2.1vh; border-right: none; font-size: 1.8vh; padding-top: 0.2vh; padding-left: 0.6vh;}
 #decorateGame1 {position: absolute; border: solid 0.1vh black; width: 49.5vh; z-index: 3; top: 30vh; left: 0;}
 #decorateMain1 {position: absolute; border: solid 0.2vh black; border-left: none; border-top: none; border-right: none; width: 32vh; top: 8.8vh; left: 9.8vh;}
 #decorateMenu1 {position: absolute; border: solid black 0.2vh; width: 47vh; height: 12vh; top: 1vh; left: 0.8vh; background-color: green;}
+#film {position: absolute; top: -2.1vh; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.2); z-index: 2; visibility: hidden;}
 </style>
 </head>
 <body>
+<p id="film"></p>
+<div id="settingsMenu">
+<button id="closeSettings">❌</button>
+<details id="mainMenuSettings">
+<summary>главное меню</summary>
+<p id="backgroundMainText">задний фон</p>
+<input type="color" id="MainMenuBackgroundColor" value="#FFFFFF">
+</details>
+<button id="acceptSettings">принять изменения</button>
+</div>
 <div id="decorateBox"></div>
-<p id="version">версия: 6</p>
+<p id="version">версия: 7</p>
 <p id="author">разработчик: <a href="t.me/LEVELxMULTICRAFT">X_X-𝙻𝔼𝚅𝔼𝙻-X_X</a><p>
 <h1 id="sign1">угадай</h1>
 <h1 id="sign2">цвет</h1>
+<div id="moreFunction">
+<button id="settings">⚙️</button>
+<p id="coin">🪙0</p>
+<p id="diamond">💎0</p>
+<p id="level">🆙1</p>
+<p id="xp"></p>
+</div>
 <button id="GameMenuCall"><strong>играть</strong></button>
-<div id="PlayMenu"><button id="backToMenu"><</button><div id="playMenuDecorate"></div><div id="classicGame"><p id="gameNameClassic">классика</p><button id="playClassic">играть</button></div></div>
-<div id="game"><button id="pause">⏸️</button><p id="timeLabel">99:99</p><div id="resultScreen"><p id="resultType">победа</p><p id="resultTime">время</p><button id="continueGame">продолжить</button></div><div id="decorateGame"></div><p id="correct">правильно: 0</p><p id="attempt">попытки: 3</p><div id="color"><button id="backColor">❌</button></div><div id="place"></div><div id="pauseMenu"><button id="pauseMenuContinue">продолжить</button><button id="startOver">заново</button><button id="returnToGameMode">режимы</button><button id="returnToMenu">в меню</button></div></div>
+<div id="PlayMenu">
+<button id="backToMenu"><</button>
+<div id="playMenuDecorate"></div>
+<div id="classicGame">
+<p id="gameNameClassic">классика</p>
+<button id="playClassic">играть</button>
+</div>
+</div>
+<div id="game">
+<button id="pause">⏸️</button>
+<div id="timeLabelConteiner">
+<p id="timeLabel">99:99</p>
+</div>
+<div id="resultScreen">
+<p id="resultType">победа</p>
+<p id="resultTime">время</p>
+<button id="continueGame">продолжить</button>
+</div>
+<div id="decorateGame"></div>
+<p id="correct">правильно: 0</p>
+<p id="attempt">попытки: 3</p>
+<div id="color">
+<button id="backColor">❌</button>
+</div>
+<div id="place"></div>
+<div id="pauseMenu">
+<button id="pauseMenuContinue">продолжить</button>
+<button id="startOver">заново</button>
+<button id="returnToGameMode">режимы</button>
+<button id="returnToMenu">в меню</button>
+</div>
+</div>
 <script>
+//📋ссылки на хтмл
+const html = document.querySelector("html");
+const body = document.querySelector("body");
 const CallPlayMenuButton = document.querySelector("#GameMenuCall");
 const PlayMenu = document.querySelector("#PlayMenu");
 const startClassic = document.querySelector("#playClassic");
@@ -69,6 +131,17 @@ const pauseMenu = document.querySelector("#pauseMenu");
 const startOver = document.querySelector("#startOver");
 const returnToGameMode = document.querySelector("#returnToGameMode");
 const returnToMenu = document.querySelector("#returnToMenu");
+const settings = document.querySelector("#settings");
+const settingsMenu = document.querySelector("#settingsMenu");
+const acceptSettings = document.querySelector("#acceptSettings");
+const mainBackground = document.querySelector("#MainMenuBackgroundColor");
+const closeSettings = document.querySelector("#closeSettings");
+const film = document.querySelector("#film");
+const coin = document.querySelector("#coin");
+const diamond = document.querySelector("#diamond");
+const level = document.querySelector("#level");
+const xp = document.querySelector("#xp");
+//📋ссылки на хтмл
 //🔤переменные для игры
 let colorsAvailable = ["red", "green", "blue"];
 let cubeChos = null;
@@ -81,7 +154,15 @@ let gameCreate = false;
 let time = [0, 5];
 let rememberTimeCycl = null;
 let timeSpent = [0, 0];
+let tick = 0;
 //🔤переменные для игры
+//🛍️инвентарь и прогресс
+let exp = 0;
+let levels = 1;
+let coins = 0;
+let diamonds = 0;
+let cards = {};
+//🛍️инвентарь и прогресс
 //📖общий вызов меню
 function CallPlayMenu() {PlayMenu.style.visibility = "visible"};
 CallPlayMenuButton.addEventListener("touchstart", CallPlayMenu);
@@ -109,23 +190,33 @@ for (let i = 0; i < 9; i++) {pattern.push(colorsAvailable[Math.floor(Math.random
 };
 console.log(pattern);
 gameCreate = true;
-rememberTimeCycl = setInterval(timeRun, 1000);
+rememberTimeCycl = setInterval(timeRun, 10);
 };
 startClassic.addEventListener("touchstart", createGame);
 //💡создание игры
 //🎨выбор цвета
-function callColor(e) {colors.style.visibility = "visible";
-for (let i = 1; i < 10; i++) {document.querySelector(`#cube${i}`).disabled = true;}
+function callColor(e) {
+colors.style.visibility = "visible";
+for (let i = 1; i < 10; i++) {
+document.querySelector(`#cube${i}`).disabled = true;
+};
 cubeChos = e.target.id;
 lockCube.push(`#${cubeChos}`);
 };
 place.addEventListener("click", callColor);
-function choseColor(e) {if (e.target.id === "backColor") {return;} else {};
-color = document.querySelector(`#${e.target.id}`).style.backgroundColor;
+function choseColor(e) {
+if (e.target.id === "backColor") {return;} else {};
 if (`#${e.target.id}` != "#color") {} else {return;};
+color = document.querySelector(`#${e.target.id}`).style.backgroundColor;
 if (document.querySelector(`#${cubeChos}`).style.backgroundColor == color) {return;} else {};
 document.querySelector(`#${cubeChos}`).style.backgroundColor = color;
-for (let i = 1; i < 10; i++) {if (lockCube.includes(`#cube${i}`)) {document.querySelector(`#cube${i}`).disabled = true} else {document.querySelector(`#cube${i}`).disabled = false;};};
+for (let i = 1; i < 10; i++) {
+if (lockCube.includes(`#cube${i}`)) {
+document.querySelector(`#cube${i}`).disabled = true;
+} else {
+document.querySelector(`#cube${i}`).disabled = false;
+};
+};
 cubeChos = null;
 color = null;
 colors.style.visibility = "hidden";
@@ -140,7 +231,8 @@ function attemptReset() {if (attempt <= 0) {
 attempt += 3;
 check();
 attemptString.innerHTML = `попытки: ${attempt}`;
-for (let i = 0; i < 3; i++) {lockCube.pop();} addAttemptReset();} else {}};
+lockCube.length = 1;
+addAttemptReset();} else {}};
 function addAttemptReset() {for (let i = 1; i < 10; i++) {if (lockCube.includes(`#cube${i}`)) {document.querySelector(`#cube${i}`).disabled = true} else {document.querySelector(`#cube${i}`).disabled = false;};};};
 function check() {
 let count = 0;
@@ -161,7 +253,7 @@ const decoratePlayMenu = document.querySelector("#playMenuDecorate");
 for (let i = 1; i < 2; i++) {decorate = document.createElement("paragraph");
 decorate.id = `decorateGame${i}`;
 decorateGame.appendChild(decorate);};
-for (let i = 1; i < 2; i++) {decorate = document.createElement("paragraph");
+for (let i = 1; i < 3; i++) {decorate = document.createElement("paragraph");
 decorate.id = `decorateMain${i}`
 decorateBox.appendChild(decorate);};
 for (let i = 1; i < 2; i++) {decorate = document.createElement("paragraph");
@@ -187,6 +279,7 @@ attempt = 3;
 color = null;
 time = [0, 5];
 timeSpent = [0, 0];
+tick = 0;
 correctString.innerHTML = "правильно: 0";
 attemptString.innerHTML = "попытки: 3";
 PlayMenu.style.visibility = "hidden";
@@ -209,6 +302,7 @@ backToMenu.addEventListener("touchstart", closePlayMenu);
 //🏆проверка победы
 function winCheck(correctCube) {
 if (correctCube === 9) {
+awards();
 resultScreen.style.visibility = "visible";
 resultType.style.left = "16vh";
 resultType.innerHTML = "победа";
@@ -225,6 +319,8 @@ clearInterval(rememberTimeCycl);
 //🏆проверка победы
 //⏳ход времени
 function timeRun() {
+tick += 10;
+if (tick < 1000) {return;} else {tick -= 1000;};
 timeSpent[0]++;
 if (timeSpent[0] >= 60) {
 timeSpent[0] -= 60;
@@ -284,7 +380,7 @@ clearInterval(rememberTimeCycl);
 pause.addEventListener("touchstart", pauseActiv);
 function closePauseMenu() {
 pauseMenu.style.visibility = "hidden";
-rememberTimeCycl = setInterval(timeRun, 1000);
+rememberTimeCycl = setInterval(timeRun, 10);
 };
 pauseMenuContinue.addEventListener("click", closePauseMenu);
 function startNew() {
@@ -307,6 +403,82 @@ closePlayMenu();
 };
 returnToMenu.addEventListener("click", returnToMenuFunc);
 //⏸️пауза
+//⚙️настройки
+function openSettings() {
+settingsMenu.style.visibility = "visible";
+film.style.visibility = "visible";
+};
+settings.addEventListener("touchstart", openSettings);
+function SetSettings() {
+html.style.backgroundColor = mainBackground.value;
+body.style.backgroundColor = mainBackground.value;
+};
+acceptSettings.addEventListener("click", SetSettings);
+function doCloseSettings() {
+settingsMenu.style.visibility = "hidden";
+film.style.visibility = "hidden";
+};
+closeSettings.addEventListener("click", doCloseSettings);
+//⚙️настройки
+//💰награды
+function awards() {
+if (timeSpent[1] == 0 && timeSpent[0] <= 40) {
+coins += 85;
+coin.innerHTML = `🪙${coins}`;
+} else if (timeSpent[1] == 0 && timeSpent[0] >= 41) {
+coins += 70;
+coin.innerHTML = `🪙${coins}`;
+} else if (timeSpent[1] == 1 && timeSpent[0] <= 30) {
+coins += 60;
+coin.innerHTML = `🪙${coins}`;
+} else if (timeSpent[1] == 1 && timeSpent[0] >= 31) {
+coins += 50;
+coin.innerHTML = `🪙${coins}`;
+} else if (timeSpent[1] == 2 && timeSpent[0] <= 30) {
+coins += 35;
+coin.innerHTML = `🪙${coins}`;
+} else if (timeSpent[1] == 2 && timeSpent[0] >= 31) {
+coins += 20;
+coin.innerHTML = `🪙${coins}`;
+} else if (timeSpent[1] == 3 && timeSpent[0] <= 10) {
+coins += 5;
+coin.innerHTML = `🪙${coins}`;
+} else {
+};
+save("coins", coins);
+};
+//💰награды
+//💾изначальные данные
+function defaultData() {
+if (localStorage.getItem("saved") == null) {
+localStorage.setItem("coins", 0);
+localStorage.setItem("diamonds", 0);
+localStorage.setItem("exp", 0);
+localStorage.setItem("levels", 1);
+localStorage.setItem("saved", true);
+} else {
+};
+};
+//💾изначальные данные
+//📥сохранение
+function save(typh, value) {
+localStorage.setItem(typh, value);
+};
+//📥сохранение
+//📤загрузка
+function load() {
+defaultData();
+coins = parseInt(localStorage.getItem("coins"));
+diamonds = parseInt(localStorage.getItem("diamonds"));
+levels = parseInt(localStorage.getItem("levels"));
+exp = parseInt(localStorage.getItem("exp"));
+coin.innerHTML = `🪙${coins}`;
+diamond.innerHTML = `💎${diamonds}`;
+level.innerHTML = `🆙${levels}`;
+xp.innerHTML = exp;
+};
+setTimeout(load, 10);
+//📤загрузка
 </script>
 </body>
 </html>
